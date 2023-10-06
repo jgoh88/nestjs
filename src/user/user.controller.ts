@@ -7,31 +7,34 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { UserService } from './user.service';
 
 @Controller('/user')
 export class UserController {
+  constructor(private userService: UserService) {}
+
   @Get()
-  getUser() {
-    return { method: 'GET', name: 'Name', email: 'email@test.com' };
+  getUsers() {
+    return this.userService.getAll();
   }
 
   @Post()
   createUser(@Body() reqBody: any) {
-    return { method: 'POST', reqBody };
+    return this.userService.create(reqBody);
   }
 
   @Get('/:userId')
-  getSingleUser(@Param() params: { userId: string }) {
-    return { method: 'GET', params };
+  getUser(@Param() params: { userId: string }) {
+    return this.userService.get(params);
   }
 
   @Patch('/:userId')
-  updateSingleUser(@Param() params: { userId: string }, @Body() reqBody: any) {
-    return { method: 'PATCH', params, reqBody };
+  updateUser(@Param() params: { userId: string }, @Body() reqBody: any) {
+    return this.userService.update(params, reqBody);
   }
 
   @Delete('/:userId')
-  deleteSingleUser(@Param() params: { userId: string }) {
-    return { method: 'DELETE', params };
+  deleteUser(@Param() params: { userId: string }) {
+    return this.userService.delete(params);
   }
 }
