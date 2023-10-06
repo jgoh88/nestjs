@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserDTO } from './dto/create-user.dto';
+import { UpdateUserDTO } from './dto/update-user.dto';
 
 type Params = {
   userId: string;
@@ -13,7 +15,7 @@ export class UserService {
     };
   }
 
-  create(reqBody: any) {
+  create(reqBody: CreateUserDTO) {
     return { method: 'POST', reqBody };
   }
 
@@ -21,7 +23,7 @@ export class UserService {
     return { method: 'GET', params };
   }
 
-  update(params: Params, reqBody: any) {
+  update(params: Params, reqBody: UpdateUserDTO) {
     return { method: 'PATCH', params, reqBody };
   }
 

@@ -8,6 +8,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { UserService } from './user.service';
+import { CreateUserDTO } from './dto/create-user.dto';
+import { UpdateUserDTO } from './dto/update-user.dto';
 
 @Controller('/user')
 export class UserController {
@@ -19,7 +21,7 @@ export class UserController {
   }
 
   @Post()
-  createUser(@Body() reqBody: any) {
+  createUser(@Body() reqBody: CreateUserDTO) {
     return this.userService.create(reqBody);
   }
 
@@ -29,7 +31,10 @@ export class UserController {
   }
 
   @Patch('/:userId')
-  updateUser(@Param() params: { userId: string }, @Body() reqBody: any) {
+  updateUser(
+    @Param() params: { userId: string },
+    @Body() reqBody: UpdateUserDTO,
+  ) {
     return this.userService.update(params, reqBody);
   }
 
