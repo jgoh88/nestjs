@@ -10,6 +10,9 @@ export class CreateUserDTO {
   @IsEmail()
   email: string;
 
+  @IsString()
+  password: string;
+
   @IsBoolean()
   @IsOptional()
   isActive: boolean;

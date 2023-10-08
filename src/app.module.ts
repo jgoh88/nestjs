@@ -4,9 +4,14 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user/entity/user.entity';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
     UserModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -18,6 +23,7 @@ import { User } from './user/entity/user.entity';
       entities: [User],
       synchronize: true,
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
